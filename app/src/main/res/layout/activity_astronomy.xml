@@ -8,8 +8,9 @@
     android:layout_height="match_parent"
     android:background="?attr/colorSurface"
     android:padding="16dp"
-    tools:context=".view.SearchActivity">
+    tools:context=".view.AstronomyActivity">
 
+    <!-- Header with back button and title -->
     <LinearLayout
         android:id="@+id/llHeader"
         android:layout_width="match_parent"
@@ -19,65 +20,75 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="16dp">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:src="@drawable/ic_back"
-            android:layout_gravity="center"
-            android:layout_marginStart="8dp"/>
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:tint="?attr/colorOnSurface"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Current Weather"
+            android:text="Astronomy"
             android:textSize="20sp"
-            android:layout_marginStart="24dp"
-            android:textStyle="bold"/>
-
+            android:layout_marginStart="8dp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnSurface"/>
     </LinearLayout>
 
-    <!-- Search input and button -->
+    <!-- City input and DatePicker (horizontal) -->
     <LinearLayout
-        android:id="@+id/llSearch"
+        android:id="@+id/llSearchInputs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/llHeader"
-        app:layout_constraintBottom_toTopOf="@id/llLabel"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp">
+        android:layout_marginBottom="8dp">
 
+        <!-- City Input -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             app:boxStrokeColor="?attr/colorPrimary"
             app:boxStrokeWidth="2dp"
-            android:hint="Enter City">
+            android:hint="Enter City"
+            android:layout_marginEnd="8dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etSearch"
+                android:id="@+id/etCity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
+                android:inputType="textCapWords"
                 android:maxLines="1"/>
-
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Date Picker -->
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btSearch"
-            android:layout_width="wrap_content"
+            android:id="@+id/btnDatePicker"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="Search"
-            android:backgroundTint="?attr/colorPrimary"
+            android:layout_weight="1"
+            android:text="Select Date"
             android:textColor="?attr/colorOnPrimary"
+            android:backgroundTint="?attr/colorPrimary"
             style="@style/ShapeAppearanceOverlay.Material3.Button"/>
     </LinearLayout>
+
+    <!-- Search Button (full width below inputs) -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/ShapeAppearanceOverlay.Material3.Button"
+        app:layout_constraintTop_toBottomOf="@id/llSearchInputs"
+        android:layout_marginTop="8dp"
+        android:text="Search Astronomy Data"
+        android:textColor="?attr/colorOnPrimary"
+        android:backgroundTint="?attr/colorPrimary"/>
 
     <!-- Divider -->
     <View
@@ -86,18 +97,17 @@
         android:layout_height="1dp"
         android:layout_marginTop="16dp"
         android:background="#E0E0E0"
-        app:layout_constraintTop_toBottomOf="@id/llSearch"/>
+        app:layout_constraintTop_toBottomOf="@id/btnSearch"/>
 
-
-    <!-- RecyclerView for search results -->
+    <!-- Astronomy Data Display -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvCountry"
+        android:id="@+id/rvAstronomyData"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/llSearch"
+        app:layout_constraintTop_toBottomOf="@id/divider"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/current_list_item"/>
+        tools:listitem="@layout/item_astronomy_data"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
