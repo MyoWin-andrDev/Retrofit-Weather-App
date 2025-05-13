@@ -25,6 +25,9 @@ android {
                 "proguard-rules.pro"
             )
         }
+        viewBinding{
+            enable = true
+        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -36,7 +39,7 @@ android {
 }
 
 dependencies {
-
+    val version = "2.9.0"
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -45,4 +48,11 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    //Retrofit Dependency
+    implementation (libs.gson)
+    implementation (libs.retrofit.v290)
+    implementation (libs.converter.gson.v290)
+    //ViewModel Dependency
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
 }
