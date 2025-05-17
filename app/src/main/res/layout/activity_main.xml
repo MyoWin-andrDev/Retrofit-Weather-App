@@ -10,7 +10,7 @@
 
     <!-- Toolbar with title and logout icon -->
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/tbMain"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
@@ -19,25 +19,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:titleTextColor="?attr/colorOnPrimary">
-
-        <ImageView
-            android:id="@+id/btLogout"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="8dp"
-            android:src="@drawable/ic_logout"
-            android:contentDescription="Logout"/>
+        app:titleTextColor="?attr/colorOnPrimary"
+        app:navigationIcon="@drawable/ic_logout">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Home"
-            android:gravity="center"
+            android:textAlignment="center"
             android:textSize="20sp"
-            android:layout_marginEnd="40dp"
             android:textColor="@android:color/white"
-            android:layout_marginStart="16dp"/>
+            android:layout_marginEnd="48dp"/>
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -53,7 +45,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar">
+        app:layout_constraintTop_toBottomOf="@id/tbMain">
 
         <!-- Search Button -->
         <com.google.android.material.button.MaterialButton
