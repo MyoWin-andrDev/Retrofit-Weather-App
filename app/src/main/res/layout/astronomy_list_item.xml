@@ -24,6 +24,17 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+            <!-- Location Name Header -->
+            <TextView
+                android:id="@+id/tvCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:text="London"
+                android:textColor="?attr/colorPrimary"
+                android:layout_marginBottom="12dp"/>
+
             <!-- Region -->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -77,7 +88,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Distance:"
+                    android:text="Distance from Yangon:"
                     android:textColor="?attr/colorOnSurfaceVariant"
                     android:layout_marginEnd="8dp"/>
 
@@ -85,7 +96,7 @@
                     android:id="@+id/tvDistance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="8983978.00 meters"
+                    tools:text="8,983.98 km"
                     android:textColor="?attr/colorSecondary"
                     android:textStyle="bold"/>
             </LinearLayout>
@@ -99,7 +110,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="LocalTime:"
+                    android:text="Local Time:"
                     android:textColor="?attr/colorOnSurfaceVariant"
                     android:layout_marginEnd="8dp"/>
 
@@ -107,7 +118,7 @@
                     android:id="@+id/tvLocalTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="2023-09-11T11:53:00.000Z"
+                    tools:text="11:53 AM (2023-09-11)"
                     android:textColor="?attr/colorSecondary"
                     android:textStyle="bold"/>
             </LinearLayout>
@@ -161,6 +172,7 @@
                     android:textColor="?attr/colorSecondary"
                     android:textStyle="bold"/>
             </LinearLayout>
+
             <!-- Divider before moon data -->
             <View
                 android:layout_width="match_parent"

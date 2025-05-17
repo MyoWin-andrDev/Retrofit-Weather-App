@@ -18,15 +18,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center_vertical"
         android:layout_marginTop="16dp">
 
         <ImageButton
-            android:id="@+id/btnBack"
+            android:id="@+id/btBack"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/ic_back"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:tint="?attr/colorOnSurface"/>
+            app:tint="?attr/colorOnSurface" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -59,7 +60,7 @@
             android:layout_marginEnd="8dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etCity"
+                android:id="@+id/etAstronomy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textCapWords"
@@ -68,19 +69,20 @@
 
         <!-- Date Picker -->
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnDatePicker"
+            android:id="@+id/btDatePicker"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Select Date"
             android:textColor="?attr/colorOnPrimary"
             android:backgroundTint="?attr/colorPrimary"
+            android:drawableEnd="@drawable/ic_calendar"
             style="@style/ShapeAppearanceOverlay.Material3.Button"/>
     </LinearLayout>
 
     <!-- Search Button (full width below inputs) -->
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSearch"
+        android:id="@+id/btSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/ShapeAppearanceOverlay.Material3.Button"
@@ -97,17 +99,16 @@
         android:layout_height="1dp"
         android:layout_marginTop="16dp"
         android:background="#E0E0E0"
-        app:layout_constraintTop_toBottomOf="@id/btnSearch"/>
+        app:layout_constraintTop_toBottomOf="@id/btSearch"/>
 
     <!-- Astronomy Data Display -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvAstronomyData"
+        android:id="@+id/rvAstronomy"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/divider"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_astronomy_data"/>
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

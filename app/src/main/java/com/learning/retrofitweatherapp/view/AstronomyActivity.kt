@@ -1,21 +1,69 @@
 package com.learning.retrofitweatherapp.view
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.learning.retrofitweatherapp.R
+import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.datepicker.MaterialDatePicker
+import com.learning.retrofitweatherapp.adapter.AstronomyAdapter
+import com.learning.retrofitweatherapp.databinding.ActivityAstronomyBinding
+import com.learning.retrofitweatherapp.util.showError
+import com.learning.retrofitweatherapp.viewmodel.WeatherViewModel
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class AstronomyActivity : AppCompatActivity() {
+    private lateinit var binding : ActivityAstronomyBinding
+    private val stringDateFormatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    private val apiDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    private var selectedDateString: String = stringDateFormatter.format(Calendar.getInstance().time)
+    private var inputDateFormat = apiDateFormat.format(Calendar.getInstance().time)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_astronomy)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        binding = ActivityAstronomyBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        val viewModel = ViewModelProvider(this)[WeatherViewModel::class.java]
+        binding.apply {
+            btSearch.setOnClickListener {
+                val location = etAstronomy.text.toString().trim()
+                if (location.isNotEmpty()) {
+                    viewModel.getAstronomyData(location, inputDateFormat)
+                } else {
+                    showError("Please Enter A City !!!.")
+                }
+            }
+            btDatePicker.setOnClickListener {
+                showDatePickerDialog()
+            }
         }
+        viewModel.astronomyLiveData.observe(this){ astroList ->
+            astroList?.let {
+                binding.rvAstronomy.adapter = AstronomyAdapter(astroList)
+            }
+        }
+        viewModel.errorMessage.observe(this){ error ->
+            error?.let {
+                showError(error)
+            }
+        }
+
+    }
+    private fun showDatePickerDialog() {
+        val calendar = Calendar.getInstance()
+        val datePicker = MaterialDatePicker.Builder
+            .datePicker()
+            .setTitleText("Select date")
+            .setSelection(calendar.timeInMillis)
+            .build()
+
+        datePicker.addOnPositiveButtonClickListener { selectedDate ->
+            Log.d("SelectedDate", selectedDate.toString())
+            inputDateFormat = apiDateFormat.format(selectedDate)
+            selectedDateString = stringDateFormatter.format(selectedDate)
+            binding.btDatePicker.text = selectedDateString
+        }
+
+        datePicker.show(supportFragmentManager, "DATE_PICKER_TAG")
     }
 }

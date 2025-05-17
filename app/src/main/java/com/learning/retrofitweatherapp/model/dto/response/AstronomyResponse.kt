@@ -4,45 +4,53 @@ import com.google.gson.annotations.SerializedName
 
 data class AstronomyResponse(
 
-	@field:SerializedName("location")
+	@SerializedName("location")
 	val location: AstroLocationResponseItem? = null,
 
-	@field:SerializedName("astronomy")
+	@SerializedName("astronomy")
 	val astronomy: Astronomy? = null
 )
 
 data class AstroLocationResponseItem(
 
-	@field:SerializedName("localtime")
+	@SerializedName("localtime")
 	val localtime: String? = null,
 
-	@field:SerializedName("country")
+	@SerializedName("country")
 	val country: String? = null,
 
-	@field:SerializedName("name")
+	@SerializedName("name")
 	val name: String? = null,
 
-	@field:SerializedName("region")
-	val region: String? = null
+	@SerializedName("region")
+	val region: String? = null,
+
+	@SerializedName("lat")
+	val lat : Double? = null,
+
+	@SerializedName("lon")
+	val lon : Double? = null,
+
+	val distance : Double? = null
 )
 
 data class AstroResponseItem(
 
-	@field:SerializedName("moonset")
+	@SerializedName("moonset")
 	val moonset: String? = null,
 
-	@field:SerializedName("sunrise")
+	@SerializedName("sunrise")
 	val sunrise: String? = null,
 
-	@field:SerializedName("sunset")
+	@SerializedName("sunset")
 	val sunset: String? = null,
 
-	@field:SerializedName("moonrise")
+	@SerializedName("moonrise")
 	val moonrise: String? = null
 )
 
 data class Astronomy(
 
-	@field:SerializedName("astro")
+	@SerializedName("astro")
 	val astro: AstroResponseItem? = null
 )

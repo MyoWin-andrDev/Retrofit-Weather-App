@@ -57,9 +57,9 @@ class WeatherViewModel : ViewModel() {
         }
     }
 
-    fun getAstronomyData(value : String){
+    fun getAstronomyData(value : String, date : String){
         viewModelScope.launch {
-            val astronomyResponse = weatherRepository.getAstronomyData(value)
+            val astronomyResponse = weatherRepository.getAstronomyData(value, date)
             resetData()
             astronomyResponse.onSuccess {
                 _astronomyLiveData.postValue(it)

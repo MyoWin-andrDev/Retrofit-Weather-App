@@ -2,6 +2,7 @@ package com.learning.retrofitweatherapp.service.network.response
 
 import com.learning.retrofitweatherapp.model.dto.response.AstronomyResponse
 import com.learning.retrofitweatherapp.model.dto.response.CurrentResponse
+import com.learning.retrofitweatherapp.model.dto.response.CurrentResponseItem
 import com.learning.retrofitweatherapp.model.dto.response.SearchResponseItem
 import com.learning.retrofitweatherapp.util.APIKEY
 import com.learning.retrofitweatherapp.util.ASTRONOMY_END_POINT
@@ -28,7 +29,7 @@ interface WeatherAPIService {
         key: String = APIKEY,
         @Query("q")
         cityInput : String
-    ) : Response<List<CurrentResponse>>
+    ) : Response<CurrentResponse>
 
     //Astronomy Response
     @GET(ASTRONOMY_END_POINT)
@@ -36,6 +37,8 @@ interface WeatherAPIService {
         @Query("key")
         key : String = APIKEY,
         @Query("q")
-        cityInput : String
-    ) : Response<List<AstronomyResponse>>
+        cityInput : String,
+        @Query("dt")
+        date : String,
+    ) : Response<AstronomyResponse>
 }
