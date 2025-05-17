@@ -57,7 +57,6 @@ class WeatherRepository {
             val response = apiService.getAstronomyData(cityInput = value, date = date)
             if(response.isSuccessful && response.body() != null){
                 //Calculate Distance From Yangon
-                Log.d("Astro", response.body().toString())
                 val astronomyResponse = response.body()!!
                 val yangonLat = 16.7833
                 val yangonLon = 96.1667

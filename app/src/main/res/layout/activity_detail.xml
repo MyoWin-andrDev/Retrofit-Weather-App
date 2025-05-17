@@ -27,7 +27,7 @@
 
             <!-- Close Button (Top-Right) -->
             <ImageButton
-                android:id="@+id/btnClose"
+                android:id="@+id/btClose"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignParentEnd="true"
@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="8dp"
-                android:layout_below="@id/btnClose">
+                android:layout_below="@id/btClose">
 
                 <!-- Name -->
                 <TextView
@@ -50,7 +50,8 @@
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:layout_marginBottom="12dp"
-                    tools:text="London"/>
+                    tools:text="London"
+                    android:textColor="?attr/colorPrimary"/>
 
                 <!-- Divider -->
                 <View

@@ -23,15 +23,12 @@ class WeatherViewModel : ViewModel() {
     private val _astronomyLiveData = MutableLiveData<List<AstronomyResponse>>()
     val astronomyLiveData : LiveData<List<AstronomyResponse>> = _astronomyLiveData
 
-    private val _isLoading = MutableLiveData(false)
-    val isLoading : MutableLiveData<Boolean> = _isLoading
-
     private val _errorMessage = MutableLiveData<String?>()
     val errorMessage : LiveData<String?> = _errorMessage
 
     fun getSearchData(value : String){
         viewModelScope.launch {
-            resetData()
+            resetError()
             val searchResponse = weatherRepository.getSearchData(value)
             searchResponse.onSuccess {
                 _searchLiveData.postValue(it)
@@ -39,13 +36,12 @@ class WeatherViewModel : ViewModel() {
             searchResponse.onFailure {
                 _errorMessage.postValue("Failed to search location : ${it.message}")
             }
-            _isLoading.postValue(false)
         }
     }
 
     fun getCurrentData(value : String){
         viewModelScope.launch {
-            resetData()
+            resetError()
             val currentResponse = weatherRepository.getCurrentData(value)
             currentResponse.onSuccess {
                 _currentLiveData.postValue(it)
@@ -53,26 +49,23 @@ class WeatherViewModel : ViewModel() {
             currentResponse.onFailure {
                 _errorMessage.postValue("Failed to load current data : ${it.message}")
             }
-            _isLoading.postValue(false)
         }
     }
 
     fun getAstronomyData(value : String, date : String){
         viewModelScope.launch {
             val astronomyResponse = weatherRepository.getAstronomyData(value, date)
-            resetData()
+            resetError()
             astronomyResponse.onSuccess {
                 _astronomyLiveData.postValue(it)
             }
             astronomyResponse.onFailure {
                 _errorMessage.postValue("Failed to load astronomy data : ${it.message}")
             }
-            _isLoading.postValue(false)
         }
     }
 
-    private fun resetData(){
-        _isLoading.postValue(true)
+    private fun resetError(){
         _errorMessage.postValue(null)
     }
 }

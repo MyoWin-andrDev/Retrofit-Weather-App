@@ -6,7 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.learning.retrofitweatherapp.databinding.SearchListItemBinding
 import com.learning.retrofitweatherapp.model.dto.response.SearchResponseItem
 
-class SearchAdapter(val searchResponseList : List<SearchResponseItem>) : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
+class SearchAdapter(val searchResponseList : List<SearchResponseItem>, val onItemClick : (SearchResponseItem) -> Unit) : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -17,7 +18,11 @@ class SearchAdapter(val searchResponseList : List<SearchResponseItem>) : Recycle
         position: Int
     ) {
         holder.binding.apply {
-
+            tvName.text = searchResponseList[position].name
+            tvCountry.text = searchResponseList[position].country
+            btDetail.setOnClickListener {
+                onItemClick(searchResponseList[position])
+            }
         }
     }
 

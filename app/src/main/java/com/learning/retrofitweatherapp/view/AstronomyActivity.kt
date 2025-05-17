@@ -37,9 +37,9 @@ class AstronomyActivity : AppCompatActivity() {
                 showDatePickerDialog()
             }
         }
-        viewModel.astronomyLiveData.observe(this){ astroList ->
-            astroList?.let {
-                binding.rvAstronomy.adapter = AstronomyAdapter(astroList)
+        viewModel.astronomyLiveData.observe(this){ astronomyList ->
+            astronomyList?.let {
+                binding.rvAstronomy.adapter = AstronomyAdapter(astronomyList)
             }
         }
         viewModel.errorMessage.observe(this){ error ->
@@ -58,7 +58,6 @@ class AstronomyActivity : AppCompatActivity() {
             .build()
 
         datePicker.addOnPositiveButtonClickListener { selectedDate ->
-            Log.d("SelectedDate", selectedDate.toString())
             inputDateFormat = apiDateFormat.format(selectedDate)
             selectedDateString = stringDateFormatter.format(selectedDate)
             binding.btDatePicker.text = selectedDateString
