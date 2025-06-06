@@ -37,15 +37,11 @@ class AstronomyActivity : AppCompatActivity() {
                 showDatePickerDialog()
             }
         }
-        viewModel.astronomyLiveData.observe(this){ astronomyList ->
-            astronomyList?.let {
-                binding.rvAstronomy.adapter = AstronomyAdapter(astronomyList)
-            }
-        }
-        viewModel.errorMessage.observe(this){ error ->
-            error?.let {
-                showError(error)
-            }
+        viewModel.astronomyLiveData.observe(this){ either ->
+            either.fold(
+                ifLeft = {error -> showError(error)},
+                ifRight = {astronomyList ->  AstronomyAdapter(astronomyList)}
+            )
         }
 
     }

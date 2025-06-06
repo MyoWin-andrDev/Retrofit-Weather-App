@@ -28,16 +28,11 @@ class CurrentActivity : AppCompatActivity() {
                 onBackPressed()
             }
         }
-        viewModel.currentLiveData.observe(this) { currentList ->
-            currentList?.let {
-                binding.rvCurrent.adapter = CurrentAdapter(currentList)
-            }
-        }
-        viewModel.errorMessage.observe(this) { error ->
-            error?.let {
-                showError(error)
-                Log.e("CurrentError", error)
-            }
+        viewModel.currentLiveData.observe(this) { either ->
+            either.fold(
+                ifLeft = { error -> showError(error)},
+                ifRight = { currentList -> CurrentAdapter(currentList)}
+            )
         }
     }
 }

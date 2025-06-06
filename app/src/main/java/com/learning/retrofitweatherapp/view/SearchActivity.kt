@@ -25,18 +25,17 @@ class SearchActivity : AppCompatActivity() {
            btSearch.setOnClickListener {
                viewModel.getSearchData(etSearch.text.toString().trim())
            }
+           btBack.setOnClickListener {
+               onBackPressed()
+           }
        }
-        viewModel.searchLiveData.observe(this) { searchList ->
-            searchList?.let {
-                binding.rvSearch.adapter = SearchAdapter(searchList){ searchItem ->
-                    startActivity(Intent(this@SearchActivity, DetailActivity::class.java).putExtra("SEARCH_ITEM", searchItem))
-                }
-            }
-        }
-        viewModel.errorMessage.observe(this) { error ->
-            error?.let {
-                showError(error)
-            }
+        viewModel.searchLiveData.observe(this) { either ->
+            either.fold(
+                ifLeft = { error -> showError(error)},
+                ifRight = { searchList -> SearchAdapter(searchList){item ->
+                    startActivity(Intent(this@SearchActivity, DetailActivity::class.java).putExtra("SEARCH_ITEM", item))
+                } }
+            )
         }
     }
 }
