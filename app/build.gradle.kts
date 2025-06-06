@@ -49,6 +49,8 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    //OKHTTP Interceptor(To Know Error On Network Calls)
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
     //Retrofit Dependency
     implementation (libs.gson)
     implementation (libs.retrofit.v290)

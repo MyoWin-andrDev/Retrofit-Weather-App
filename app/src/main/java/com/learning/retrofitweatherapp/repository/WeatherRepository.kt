@@ -17,12 +17,10 @@ class WeatherRepository {
     private val apiService = RetrofitInstance.getInstance().create(WeatherAPIService::class.java)
 
     suspend fun getSearchData(value : String) : Result<List<SearchResponseItem>>{
-        val searchList = ArrayList<SearchResponseItem>()
         return try {
             val response = apiService.getSearchData(cityInput = value)
             if(response.isSuccessful && response.body() != null){
-                searchList.addAll(response.body()!!)
-                Result.success(searchList)
+                Result.success(response.body()!!)
             }
             else{
                 Result.failure(Exception("Error :  ${response.errorBody()}"))
@@ -33,17 +31,16 @@ class WeatherRepository {
     }
 
     suspend fun getCurrentData(value : String) : Result<List<CurrentResponse>>{
-        val currentList = ArrayList<CurrentResponse>()
         return try {
             val response = apiService.getCurrentData(cityInput = value)
-            if(response.isSuccessful && response.body() != null){
-                currentList.addAll(listOf(response.body()!!))
-                Log.d("CurrentList ", currentList.toString())
-                Result.success(currentList)
+            val body = response.body()
+            if(response.isSuccessful && body != null){
+                Result.success(listOf(body))
 
             }
             else{
-                Result.failure(Exception("Error : ${response.errorBody()}"))
+                var errorMessage = response.errorBody()?.string()?: "Unknown Error"
+                Result.failure(Exception("Error : $errorMessage"))
             }
         }
         catch (e : Exception){
@@ -52,7 +49,6 @@ class WeatherRepository {
     }
 
     suspend fun getAstronomyData(value : String, date : String) : Result<List<AstronomyResponse>>{
-        val astronomyList = ArrayList<AstronomyResponse>()
         return try {
             val response = apiService.getAstronomyData(cityInput = value, date = date)
             if(response.isSuccessful && response.body() != null){
@@ -71,9 +67,7 @@ class WeatherRepository {
                         localtime = formatAstronomyLocaltime(astronomyResponse.location.localtime.toString())
                     )
                 )
-
-                astronomyList.addAll(listOf(modifiedResponse))
-                Result.success(astronomyList)
+                Result.success(listOf(modifiedResponse))
             }
             else{
                 Result.failure(Exception("Error : ${response.errorBody()}"))

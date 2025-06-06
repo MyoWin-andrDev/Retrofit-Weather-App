@@ -11,7 +11,7 @@ class SearchAdapter(val searchResponseList : List<SearchResponseItem>, val onIte
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): SearchViewHolder = SearchViewHolder(SearchListItemBinding.inflate(LayoutInflater.from(parent.context)))
+    ): SearchViewHolder = SearchViewHolder(SearchListItemBinding.inflate(LayoutInflater.from(parent.context),parent, false))
 
     override fun onBindViewHolder(
         holder: SearchViewHolder,
