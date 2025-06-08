@@ -1,6 +1,7 @@
 package com.learning.retrofitweatherapp.view
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.learning.retrofitweatherapp.adapter.CurrentAdapter
@@ -10,7 +11,7 @@ import com.learning.retrofitweatherapp.viewmodel.WeatherViewModel
 
 class CurrentActivity : AppCompatActivity() {
     private lateinit var binding : ActivityCurrentBinding
-     private val viewModel = ViewModelProvider(this)[WeatherViewModel::class.java]
+    private val viewModel : WeatherViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCurrentBinding.inflate(layoutInflater)
@@ -30,11 +31,11 @@ class CurrentActivity : AppCompatActivity() {
         }
     }
     private fun observeCurrentData() = with(binding){
-        viewModel.currentLiveData.observe(this@CurrentActivity){  either ->
+        viewModel.currentLiveData.observe(this@CurrentActivity){ either ->
             either.fold(
                 ifLeft = { error -> showToast(error)},
                 ifRight = { currentList ->
-                    if(!currentList.isEmpty()){
+                    if(currentList.isNotEmpty()){
                         binding.rvCurrent.adapter = CurrentAdapter(currentList)
                     }
                 }

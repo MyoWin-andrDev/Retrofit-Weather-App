@@ -39,7 +39,11 @@ class AstronomyActivity : AppCompatActivity() {
         viewModel.astronomyLiveData.observe(this){ either ->
             either.fold(
                 ifLeft = {error -> showToast(error)},
-                ifRight = {astronomyList ->  AstronomyAdapter(astronomyList)}
+                ifRight = {astronomyList ->
+                    if(astronomyList.isNotEmpty()){
+                        binding.rvAstronomy.adapter = AstronomyAdapter(astronomyList)
+                    }
+                }
             )
         }
 
