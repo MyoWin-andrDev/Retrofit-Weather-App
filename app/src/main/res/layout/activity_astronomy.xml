@@ -22,7 +22,7 @@
         android:layout_marginTop="16dp">
 
         <ImageButton
-            android:id="@+id/btBack"
+            android:id="@+id/ibBack"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/ic_back"

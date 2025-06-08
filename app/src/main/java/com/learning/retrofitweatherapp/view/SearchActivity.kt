@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.learning.retrofitweatherapp.adapter.SearchAdapter
 import com.learning.retrofitweatherapp.databinding.ActivitySearchBinding
+import com.learning.retrofitweatherapp.util.showDetailDialog
 import com.learning.retrofitweatherapp.util.showToast
 import com.learning.retrofitweatherapp.viewmodel.WeatherViewModel
 
@@ -20,7 +21,7 @@ class SearchActivity : AppCompatActivity() {
            btSearch.setOnClickListener {
                viewModel.getSearchData(etSearch.text.toString().trim())
            }
-           btBack.setOnClickListener {
+           ibBack.setOnClickListener {
                onBackPressed()
            }
        }
@@ -28,8 +29,8 @@ class SearchActivity : AppCompatActivity() {
             either.fold(
                 ifLeft = { error -> showToast(error)},
                 ifRight = { searchList ->
-                    SearchAdapter(searchList){item ->
-                    startActivity(Intent(this@SearchActivity, DetailActivity::class.java).putExtra("SEARCH_ITEM", item))
+                    binding.rvSearch.adapter = SearchAdapter(searchList){item ->
+                    showDetailDialog(item)
                 } }
             )
         }

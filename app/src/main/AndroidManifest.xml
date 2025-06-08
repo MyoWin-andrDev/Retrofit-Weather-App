@@ -20,9 +20,6 @@
             android:name=".view.CurrentActivity"
             android:exported="true" />
         <activity
-            android:name=".view.DetailActivity"
-            android:exported="false" />
-        <activity
             android:name=".view.SearchActivity"
             android:exported="true" />
         <activity

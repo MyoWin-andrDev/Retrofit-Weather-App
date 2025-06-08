@@ -1,7 +1,11 @@
 package com.learning.retrofitweatherapp.util
 
 import android.content.Context
+import android.view.LayoutInflater
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import com.learning.retrofitweatherapp.databinding.DialogSearchDetailBinding
+import com.learning.retrofitweatherapp.model.dto.response.SearchResponseItem
 import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -25,6 +29,7 @@ fun formatDateTime(input: String): String {
     }
 }
 
+//API Call
 suspend fun <T, R> safeApiCall(
     apiCall : suspend () -> Response<T>,
     onSuccess : (T) -> R
@@ -42,4 +47,27 @@ suspend fun <T, R> safeApiCall(
     }catch (e : Exception){
         Result.failure(e)
     }
+}
+
+//Detail Dialog
+fun Context.showDetailDialog(item : SearchResponseItem){
+    val dialogView = DialogSearchDetailBinding.inflate(LayoutInflater.from(this), null, false)
+    with(dialogView){
+        tvName.text = item.name
+        tvCountry.text = item.country
+        tvRegion.text = item.region
+        tvLatitude.text = item.lat.toString()
+        tvLongitude.text = item.lon.toString()
+    }
+    // Create and show dialog
+    AlertDialog.Builder(this)
+        .setView(dialogView.root)  // Use binding.root as the dialog view
+        .setCancelable(true)
+        .create()
+        .apply {
+            show()
+            dialogView.btClose.setOnClickListener {
+                dismiss()
+            }
+        }
 }

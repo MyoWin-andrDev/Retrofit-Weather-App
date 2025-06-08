@@ -25,7 +25,7 @@ class CurrentActivity : AppCompatActivity() {
                 ?: "Please enter a location"
 
         }
-        btBack.setOnClickListener {
+        ibBack.setOnClickListener {
             onBackPressed()
         }
     }
