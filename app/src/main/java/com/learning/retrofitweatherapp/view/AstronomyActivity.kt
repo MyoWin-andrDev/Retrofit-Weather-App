@@ -1,13 +1,12 @@
 package com.learning.retrofitweatherapp.view
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.learning.retrofitweatherapp.adapter.AstronomyAdapter
 import com.learning.retrofitweatherapp.databinding.ActivityAstronomyBinding
-import com.learning.retrofitweatherapp.util.showError
+import com.learning.retrofitweatherapp.util.showToast
 import com.learning.retrofitweatherapp.viewmodel.WeatherViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -30,7 +29,7 @@ class AstronomyActivity : AppCompatActivity() {
                 if (location.isNotEmpty()) {
                     viewModel.getAstronomyData(location, inputDateFormat)
                 } else {
-                    showError("Please Enter A City !!!.")
+                    showToast("Please Enter A City !!!.")
                 }
             }
             btDatePicker.setOnClickListener {
@@ -39,7 +38,7 @@ class AstronomyActivity : AppCompatActivity() {
         }
         viewModel.astronomyLiveData.observe(this){ either ->
             either.fold(
-                ifLeft = {error -> showError(error)},
+                ifLeft = {error -> showToast(error)},
                 ifRight = {astronomyList ->  AstronomyAdapter(astronomyList)}
             )
         }

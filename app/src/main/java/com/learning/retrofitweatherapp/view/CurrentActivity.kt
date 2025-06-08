@@ -1,37 +1,43 @@
 package com.learning.retrofitweatherapp.view
 
 import android.os.Bundle
-import android.util.Log
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
-import com.learning.retrofitweatherapp.R
 import com.learning.retrofitweatherapp.adapter.CurrentAdapter
 import com.learning.retrofitweatherapp.databinding.ActivityCurrentBinding
-import com.learning.retrofitweatherapp.util.showError
+import com.learning.retrofitweatherapp.util.showToast
 import com.learning.retrofitweatherapp.viewmodel.WeatherViewModel
 
 class CurrentActivity : AppCompatActivity() {
     private lateinit var binding : ActivityCurrentBinding
+     private val viewModel = ViewModelProvider(this)[WeatherViewModel::class.java]
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCurrentBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val viewModel = ViewModelProvider(this)[WeatherViewModel::class.java]
-        binding.apply {
-            btSearch.setOnClickListener {
-                viewModel.getCurrentData(etSearch.text.toString().trim())
-            }
-            btBack.setOnClickListener {
-                onBackPressed()
-            }
+        setupListener()
+        observeCurrentData()
+    }
+    private fun setupListener() = with(binding){
+        btSearch.setOnClickListener {
+            etSearch.text.toString().trim().takeIf { it.isNotEmpty() }?.let { query->
+                viewModel.getCurrentData(query) }
+                ?: "Please enter a location"
+
         }
-        viewModel.currentLiveData.observe(this) { either ->
+        btBack.setOnClickListener {
+            onBackPressed()
+        }
+    }
+    private fun observeCurrentData() = with(binding){
+        viewModel.currentLiveData.observe(this@CurrentActivity){  either ->
             either.fold(
-                ifLeft = { error -> showError(error)},
-                ifRight = { currentList -> CurrentAdapter(currentList)}
+                ifLeft = { error -> showToast(error)},
+                ifRight = { currentList ->
+                    if(!currentList.isEmpty()){
+                        binding.rvCurrent.adapter = CurrentAdapter(currentList)
+                    }
+                }
             )
         }
     }
