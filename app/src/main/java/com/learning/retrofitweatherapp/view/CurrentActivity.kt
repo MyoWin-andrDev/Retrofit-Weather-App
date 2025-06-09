@@ -1,43 +1,54 @@
 package com.learning.retrofitweatherapp.view
 
 import android.os.Bundle
-import android.util.Log
-import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.ViewModelProvider
-import com.learning.retrofitweatherapp.R
 import com.learning.retrofitweatherapp.adapter.CurrentAdapter
 import com.learning.retrofitweatherapp.databinding.ActivityCurrentBinding
-import com.learning.retrofitweatherapp.util.showError
+import com.learning.retrofitweatherapp.util.showToast
 import com.learning.retrofitweatherapp.viewmodel.WeatherViewModel
 
 class CurrentActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityCurrentBinding
+
+    private lateinit var binding: ActivityCurrentBinding
+    private val viewModel: WeatherViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCurrentBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val viewModel = ViewModelProvider(this)[WeatherViewModel::class.java]
-        binding.apply {
-            btSearch.setOnClickListener {
-                viewModel.getCurrentData(etSearch.text.toString().trim())
-            }
-            btBack.setOnClickListener {
-                onBackPressed()
+
+
+        setupListeners()
+        observeCurrentData()
+
+
+    }
+
+    private fun setupListeners() = with(binding) {
+        btSearch.setOnClickListener {
+            val query = etSearch.text.toString().trim()
+            if (query.isNotEmpty()) {
+                viewModel.getCurrentData(query)
             }
         }
-        viewModel.currentLiveData.observe(this) { currentList ->
-            currentList?.let {
-                binding.rvCurrent.adapter = CurrentAdapter(currentList)
-            }
+
+        ibBack.setOnClickListener {
+            finish()
         }
-        viewModel.errorMessage.observe(this) { error ->
-            error?.let {
-                showError(error)
-                Log.e("CurrentError", error)
-            }
+
+    }
+
+
+    private fun observeCurrentData() = with(binding) {
+        viewModel.currentLiveData.observe(this@CurrentActivity) { either ->
+            either.fold(
+                ifLeft = { errMsg -> showToast(errMsg) },
+                ifRight = { currentList ->
+                    if (currentList.isNotEmpty()) rvCurrent.adapter = CurrentAdapter(currentList)
+                }
+            )
         }
     }
 }
+

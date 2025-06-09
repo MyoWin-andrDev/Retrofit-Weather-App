@@ -6,12 +6,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.learning.retrofitweatherapp.databinding.SearchListItemBinding
 import com.learning.retrofitweatherapp.model.dto.response.SearchResponseItem
 
-class SearchAdapter(val searchResponseList : List<SearchResponseItem>, val onItemClick : (SearchResponseItem) -> Unit) : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
+class SearchAdapter(
+    val searchResponseList: List<SearchResponseItem>,
+    val onItemClick: (SearchResponseItem) -> Unit
+) : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): SearchViewHolder = SearchViewHolder(SearchListItemBinding.inflate(LayoutInflater.from(parent.context)))
+    ): SearchViewHolder =
+        SearchViewHolder(SearchListItemBinding.inflate(LayoutInflater.from(parent.context)))
 
     override fun onBindViewHolder(
         holder: SearchViewHolder,
@@ -28,5 +32,6 @@ class SearchAdapter(val searchResponseList : List<SearchResponseItem>, val onIte
 
     override fun getItemCount(): Int = searchResponseList.size
 
-    inner class SearchViewHolder(val binding : SearchListItemBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class SearchViewHolder(val binding: SearchListItemBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }

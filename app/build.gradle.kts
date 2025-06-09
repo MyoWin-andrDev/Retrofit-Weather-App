@@ -53,7 +53,13 @@ dependencies {
     implementation (libs.gson)
     implementation (libs.retrofit.v290)
     implementation (libs.converter.gson.v290)
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+
     //ViewModel Dependency
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+
+    //Arrow
+    implementation(platform("io.arrow-kt:arrow-stack:1.2.0")) // Use latest version
+    implementation("io.arrow-kt:arrow-core")
 }

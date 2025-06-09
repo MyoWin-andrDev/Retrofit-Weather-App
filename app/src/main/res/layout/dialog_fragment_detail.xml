@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="8dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintWidth_percent="0.9"> <!-- 90% width -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Close Button (Top-Right) -->
+        <ImageButton
+            android:id="@+id/btClose"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_close" />
+
+        <!-- Content -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btClose"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical">
+
+            <!-- Name -->
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="London" />
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="12dp"
+                android:background="#E0E0E0" />
+
+            <!-- Details (LinearLayout) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="8dp">
+
+                <!-- Region -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:text="Region:"
+                        android:textColor="#757575"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvRegion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="City of London, Greater London" />
+                </LinearLayout>
+
+                <!-- Country -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:text="Country:"
+                        android:textColor="#757575"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvCountry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="United Kingdom" />
+                </LinearLayout>
+
+                <!-- Latitude -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:text="Latitude:"
+                        android:textColor="#757575"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvLatitude"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="51.52" />
+                </LinearLayout>
+
+                <!-- Longitude -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:text="Longitude:"
+                        android:textColor="#757575"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvLongitude"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="-0.11" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
